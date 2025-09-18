@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAELの便利ツール</title>
+  <meta name="description" content="音神 蛍（BAEL）が作ったトーラムの素材検索ツール。弓、自動弓、素材をサクッと！ギルドやプレイヤー向けに最適化。">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #1a202c, #2d3748);
+      color: #e2e8f0;
+      font-family: 'Arial', sans-serif;
+    }
+    .light body {
+      background: linear-gradient(to bottom, #e2e8f0, #edf2f7);
+      color: #1a4731;
+    }
+    .toram-logo {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+    .tool-card {
+      transition: transform 0.3s;
+      min-width: 250px;
+    }
+    .tool-card:hover {
+      transform: scale(1.05);
+    }
+    .tools-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tool-card {
+      scroll-snap-align: start;
+      background-color: #1a4731; /* ダークモード: トーラム風の深緑 */
+      color: #e2e8f0;
+    }
+    .light .tool-card {
+      background-color: #d1fae5; /* ライトモード: 明るい緑 */
+      color: #1a4731;
+    }
+    .tool-card a {
+      color: #60a5fa;
+    }
+    .tool-card a:hover {
+      color: #3b82f6;
+      text-shadow: 0 0 5px #10b981; /* 蛍っぽい緑の輝き */
+    }
+    .light .tool-card a {
+      color: #2f855a;
+    }
+    .light .tool-card a:hover {
+      color: #276749;
+      text-shadow: 0 0 5px #34d399;
+    }
+    #contact a:hover {
+      text-shadow: 0 0 5px #10b981; /* 蛍の輝き */
+    }
+    .light #contact a:hover {
+      text-shadow: 0 0 5px #34d399;
+    }
+    .light h1 {
+      color: #10b981; /* ライトモード: 明るい黄緑 */
+    }
+    .carousel-btn {
+      background-color: #4b5563;
+      color: #fff;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .carousel-btn:hover {
+      background-color: #6b7280;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- ヘッダー -->
+  <header class="bg-gray-900 dark:bg-gray-800 p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-white light:text-green-500">BAELの便利ツール</h1>
+      <div class="flex items-center space-x-4">
+        <nav>
+          <a href="#home" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ホーム</a>
+          <a href="tools.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ツール</a>
+          <a href="#guide" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">使い方</a>
+          <a href="#contact" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">お問い合わせ</a>
+        </nav>
+        <button id="theme-toggle" class="text-white bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded">ライトモード</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインビジュアル -->
+  <section class="container mx-auto py-10 text-center">
+    <img src="https://via.placeholder.com/200x100?text=BAEL+Logo" alt="BAEL Logo" class="toram-logo">
+    <h2 class="text-3xl font-semibold mt-4">BAELの便利ツール</h2>
+    <p class="text-lg mt-2">トーラムの素材や装備をサクッと検索！初心者からギルドまで、簡単便利！</p>
+    <a href="tools.html" class="mt-6 inline-block bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 dark:bg-green-600 dark:hover:bg-green-500">ツールを今すぐ使う</a>
+  </section>
+
+  <!-- ツール一覧 -->
+  <section class="container mx-auto py-10">
+    <h3 class="text-2xl font-semibold text-center mb-6">ツール一覧</h3>
+    <div class="relative">
+      <button id="prev-btn" class="carousel-btn absolute left-0 top-1/2 transform -translate-y-1/2">←</button>
+      <div id="tools-container" class="tools-container pb-4">
+        <div class="tool-card p-6 rounded-lg shadow-lg mx-2">
+          <h4 class="text-xl font-bold">素材検索ツール</h4>
+          <p class="mt-2">装備作成に必要な素材を簡単検索。弓や自動弓のデータも完備！</p>
+          <a href="tools.html" class="mt-4 inline-block">使ってみる</a>
+        </div>
+        <div class="tool-card p-6 rounded-lg shadow-lg mx-2">
+          <h4 class="text-xl font-bold">ステータス計算機（準備中）</h4>
+          <p class="mt-2">STR/DEXの最適な割り振りをシミュレーション。近日公開！</p>
+        </div>
+        <div class="tool-card p-6 rounded-lg shadow-lg mx-2">
+          <h4 class="text-xl font-bold">ドロップ率チェッカー（準備中）</h4>
+          <p class="mt-2">モンスターごとのドロップ率をチェック。効率狩りに！</p>
+        </div>
+        <div class="tool-card p-6 rounded-lg shadow-lg mx-2">
+          <h4 class="text-xl font-bold">装備比較ツール（準備中）</h4>
+          <p class="mt-2">複数の装備を比較して最適な選択を。近日公開！</p>
+        </div>
+        <div class="tool-card p-6 rounded-lg shadow-lg mx-2">
+          <h4 class="text-xl font-bold">素材ドロップマップ（準備中）</h4>
+          <p class="mt-2">素材のドロップ場所をマップでチェック。近日公開！</p>
+        </div>
+        <div class="tool-card p-6 rounded-lg shadow-lg mx-2">
+          <h4 class="text-xl font-bold">スキルシミュレーター（準備中）</h4>
+          <p class="mt-2">スキルの組み合わせを試して最適化。近日公開！</p>
+        </div>
+      </div>
+      <button id="next-btn" class="carousel-btn absolute right-0 top-1/2 transform -translate-y-1/2">→</button>
+    </div>
+  </section>
+
+  <!-- 使い方 -->
+  <section id="guide" class="container mx-auto py-10">
+    <h3 class="text-2xl font-semibold text-center mb-6">使い方</h3>
+    <p class="text-lg">1. ツールページで検索したい装備や素材を選ぶ<br>2. 必要な素材やドロップ場所をチェック<br>3. 結果をギルドでシェア！</p>
+  </section>
+
+  <!-- お問い合わせ -->
+  <section id="contact" class="container mx-auto py-10 text-center">
+    <h3 class="text-2xl font-semibold mb-6">お問い合わせ</h3>
+    <p>フィードバックはXで！ <a href="https://x.com/Otohotaru" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@Otohotaru</a></p>
+    <p>トーラムのハッシュタグ #ToramOnline でシェアしてね！</p>
+  </section>
+
+  <!-- フッター -->
+  <footer class="bg-gray-900 dark:bg-gray-800 p-4 mt-auto">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 BAELの便利ツール. Made for Toram Online players.</p>
+      <p>こちらのページ・ツールは <a href="https://x.ai/grok" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">Grok</a> にて生成しております。</p>
+    </div>
+  </footer>
+
+  <!-- ダークモード切り替え＋カルーセルスクリプト -->
+  <script>
+    // ダークモード切り替え
+    const toggleButton = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      html.classList.remove('dark');
+      html.classList.add('light');
+      toggleButton.textContent = 'ダークモード';
+    }
+    toggleButton.addEventListener('click', () => {
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        toggleButton.textContent = 'ダークモード';
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = 'ライトモード';
+      }
+    });
+
+    // ループカルーセル
+    const container = document.getElementById('tools-container');
+    const cards = container.children;
+    container.append(...Array.from(cards).map(card => card.cloneNode(true)));
+    container.prepend(...Array.from(cards).map(card => card.cloneNode(true)));
+    let scrollPos = cards.length * cards[0].offsetWidth;
+    container.scrollLeft = scrollPos;
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      container.scrollBy({ left: -cards[0].offsetWidth, behavior: 'smooth' });
+      if (container.scrollLeft <= 0) container.scrollLeft = scrollPos;
+    });
+    document.getElementById('next-btn').addEventListener('click', () => {
+      container.scrollBy({ left: cards[0].offsetWidth, behavior: 'smooth' });
+      if (container.scrollLeft >= scrollPos * 2) container.scrollLeft = scrollPos;
+    });
+  </script>
+</body>
+</html>
