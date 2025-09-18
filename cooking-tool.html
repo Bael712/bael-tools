@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAELの料理効果コードツール</title>
+  <meta name="description" content="トーラムの料理効果コード検索ツール。効果を選んでコードをサクッとコピー！">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #1a202c, #2d3748);
+      color: #e2e8f0;
+      font-family: 'Arial', sans-serif;
+    }
+    .light body {
+      background: linear-gradient(to bottom, #e2e8f0, #edf2f7);
+      color: #1a4731;
+    }
+    .tool-card {
+      transition: transform 0.3s;
+      min-width: 250px;
+    }
+    .tool-card:hover {
+      transform: scale(1.05);
+    }
+    .tools-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tool-card {
+      scroll-snap-align: start;
+      background-color: #1a4731; /* ダークモード: トーラム風の深緑 */
+      color: #e2e8f0;
+    }
+    .light .tool-card {
+      background-color: #d1fae5; /* ライトモード: 明るい緑 */
+      color: #1a4731;
+    }
+    .tool-card a {
+      color: #60a5fa;
+    }
+    .tool-card a:hover {
+      color: #3b82f6;
+      text-shadow: 0 0 5px #10b981; /* 蛍っぽい緑の輝き */
+    }
+    .light .tool-card a {
+      color: #2f855a;
+    }
+    .light .tool-card a:hover {
+      color: #276749;
+      text-shadow: 0 0 5px #34d399;
+    }
+    #contact a:hover {
+      text-shadow: 0 0 5px #10b981; /* 蛍の輝き */
+    }
+    .light #contact a:hover {
+      text-shadow: 0 0 5px #34d399;
+    }
+    .light h1 {
+      color: #10b981; /* ライトモード: 明るい黄緑 */
+    }
+    .carousel-btn {
+      background-color: #4b5563;
+      color: #fff;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .carousel-btn:hover {
+      background-color: #6b7280;
+    }
+    .code-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #4a5568;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    .light .code-row {
+      background: #a0aec0;
+    }
+    .code-text {
+      font-family: monospace;
+      font-size: 1em;
+    }
+    .copy-btn {
+      background-color: #48bb78;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      font-size: 0.9em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .copy-btn:hover {
+      background-color: #38a169;
+    }
+    .light .copy-btn {
+      background-color: #38a169;
+    }
+    .light .copy-btn:hover {
+      background-color: #2f855a;
+    }
+    select {
+      background-color: #4a5568;
+      color: #e2e8f0;
+      border: 1px solid #718096;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .light select {
+      background-color: #edf2f7;
+      color: #1a4731;
+      border: 1px solid #a0aec0;
+    }
+    select option {
+      background-color: #2d3748;
+      color: #e2e8f0;
+    }
+    .light select option {
+      background-color: #f7fafc;
+      color: #1a4731;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- ヘッダー -->
+  <header class="bg-gray-900 dark:bg-gray-800 p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-white light:text-green-500">BAELの便利ツール</h1>
+      <div class="flex items-center space-x-4">
+        <nav>
+          <a href="index.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ホーム</a>
+          <a href="tools.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ツール</a>
+          <a href="#guide" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">使い方</a>
+          <a href="#contact" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">お問い合わせ</a>
+        </nav>
+        <button id="theme-toggle" class="text-white bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded">ライトモード</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインビジュアル -->
+  <section class="container mx-auto py-10 text-center">
+    <h2 class="text-3xl font-semibold mt-4">料理効果コードツール</h2>
+    <p class="text-lg mt-2">トーラムの料理効果をサクッと検索！</p>
+  </section>
+
+  <!-- ツールセクション -->
+  <section id="tool" class="container mx-auto py-10">
+    <h3 class="text-2xl font-semibold text-center mb-6">料理効果コード一覧</h3>
+    <div class="max-w-md mx-auto">
+      <label for="effectSelect" class="block font-bold mb-2">効果を選んでください：</label>
+      <select id="effectSelect" class="w-full">
+        <option value="">-- 効果を選択 --</option>
+      </select>
+      <div id="codeResult" class="mt-4 hidden">
+        <h4 id="effectHeading" class="text-xl font-bold mb-2"></h4>
+        <div id="codesList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使い方 -->
+  <section id="guide" class="container mx-auto py-10">
+    <h3 class="text-2xl font-semibold text-center mb-6">使い方</h3>
+    <p class="text-lg">1. 効果を選択<br>2. 表示されたコードをコピー</p>
+  </section>
+
+  <!-- お問い合わせ -->
+  <section id="contact" class="container mx-auto py-10 text-center">
+    <h3 class="text-2xl font-semibold mb-6">お問い合わせ</h3>
+    <p>フィードバックはXで！ <a href="https://x.com/Otohotaru" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@Otohotaru</a></p>
+    <p>トーラムのハッシュタグ #ToramOnline でシェアしてね！</p>
+  </section>
+
+  <!-- フッター -->
+  <footer class="bg-gray-900 dark:bg-gray-800 p-4 mt-auto">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 BAELの便利ツール. Made for Toram Online players.</p>
+      <p>こちらのページ・ツールは <a href="https://x.ai/grok" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">Grok</a> にて生成しております。</p>
+    </div>
+  </footer>
+
+  <!-- スクリプト -->
+  <script>
+    // ダークモード切り替え
+    const toggleButton = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      html.classList.remove('dark');
+      html.classList.add('light');
+      toggleButton.textContent = 'ダークモード';
+    }
+    toggleButton.addEventListener('click', () => {
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        toggleButton.textContent = 'ダークモード';
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = 'ライトモード';
+      }
+    });
+
+    // 料理効果データ
+    const data = {
+      "STR+30": ["1110033", "1010498", "5261919", "4010024"],
+      "INT+30": ["7130001", "5190001", "2020707", "1010498"],
+      "VIT+26": ["2134125", "2269030"],
+      "AGI+30": ["1220777", "1110033", "7162029"],
+      "DEX+30": ["3220777", "1074649", "1010261"],
+      "最大HP+5000": ["2010228", "54154629", "1250015", "1010101"],
+      "最大MP+1000": ["6053838", "2260000", "2020707", "1070417"],
+      "武器ATK+100": ["6220777", "4010051"],
+      "命中+100": ["2010308", "3210104", "1181220", "1181220"],
+      "光属性にダメージ+13%": ["3210105", "1105050"],
+      "光属性にダメージ+11%": ["ナビダ-M-1225"],
+      "闇属性にダメージ+15%": ["3210104", "5010480"],
+      "火属性にダメージ+15%": ["3210106", "9181111"],
+      "水属性にダメージ+15%": ["3210100", "7150030", "1110111"],
+      "風属性にダメージ+15%": ["3210101", "3030303"],
+      "地属性にダメージ+15%": ["3210103", "2020202"],
+      "地属性にダメージ+11%": ["5236969"],
+      "無属性にダメージ+15%": ["3210102"],
+      "無属性にダメージ+11%": ["2190038"],
+      "物理耐性+50%": ["2200117", "1010308", "4010051"],
+      "魔法耐性+50%": ["5200025", "6190007", "2210000"],
+      "物理バリア+5000": ["7130004"],
+      "魔法バリア+5000": ["7090003"],
+      "割合バリア+30%": ["4010024", "1074649", "6150029"],
+      "攻撃MP回復+30": ["5236969", "7220777", "4040404"],
+      "クリティカル率+30": ["3149696", "4010000", "1181140", "7162029"],
+      "ヘイト-100%": ["3190038", "1010261"],
+      "ヘイト+100%": ["4220777", "2190038", "5261002"]
+    };
+
+    const select = document.getElementById("effectSelect");
+    const result = document.getElementById("codeResult");
+    const heading = document.getElementById("effectHeading");
+    const codesList = document.getElementById("codesList");
+
+    // オプションを追加
+    for (const effect in data) {
+      const option = document.createElement("option");
+      option.value = effect;
+      option.textContent = effect;
+      select.appendChild(option);
+    }
+
+    // 変更イベント
+    select.addEventListener("change", () => {
+      const value = select.value;
+      if (value && data[value]) {
+        result.classList.remove("hidden");
+        heading.textContent = value;
+
+        codesList.innerHTML = "";
+        data[value].forEach(code => {
+          const row = document.createElement("div");
+          row.className = "code-row";
+
+          const codeSpan = document.createElement("span");
+          codeSpan.className = "code-text";
+          codeSpan.textContent = code;
+
+          const btn = document.createElement("button");
+          btn.className = "copy-btn";
+          btn.textContent = "コピー";
+          btn.onclick = () => {
+            navigator.clipboard.writeText(code).then(() => {
+              btn.textContent = "コピー完了！";
+              setTimeout(() => btn.textContent = "コピー", 1500);
+            });
+          };
+
+          row.appendChild(codeSpan);
+          row.appendChild(btn);
+          codesList.appendChild(row);
+        });
+      } else {
+        result.classList.add("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
