@@ -265,7 +265,8 @@
         heading.textContent = value;
 
         codesList.innerHTML = "";
-        data[value].forEach(code => {
+        const uniqueCodes = [...new Set(data[value])];
+        uniqueCodes.forEach(code => {
           const row = document.createElement("div");
           row.className = "code-row";
 
