@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAEL's 便利ツール</title>
-  <meta name="description" content="BAELが作ったトーラムの素材検索ツール。素材をサクッと検索！ギルドやプレイヤー向けに最適化。">
-  <meta name="description" content="音神 蛍（BAEL）が作ったトーラムの素材検索ツール。装備素材をサクッと検索！ギルドやプレイヤー向けに最適化。">
+  <title>BAEL's 素材逆引きツール</title>
+  <meta name="description" content="トーラムオンラインの装備・アイテムから必要素材を逆検索！ドロップ場所も一発でわかる便利ツール。">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
@@ -17,60 +16,47 @@
       background: linear-gradient(to bottom, #e2e8f0, #edf2f7);
       color: #1a4731;
     }
-    .toram-logo {
-      max-width: 200px;
-      margin: 0 auto;
-    }
-    .tool-card {
-      transition: transform 0.3s;
-      min-width: 250px;
-      height: 100%; /* カードの高さを揃える */
-    }
-    .tool-card:hover {
-      transform: scale(1.05);
-    }
-    .tool-card {
-      scroll-snap-align: start;
-      background-color: #1a4731; /* ダークモード */
+    input {
+      background: #4a5568;
       color: #e2e8f0;
+      border: 1px solid #718096;
+      border-radius: 8px;
+      padding: 12px;
+      width: 100%;
     }
-    .light .tool-card {
-      background-color: #d1fae5; /* ライトモード*/
+    .light input {
+      background: #edf2f7;
       color: #1a4731;
+      border-color: #a0aec0;
     }
-    .tool-card a {
-      color: #60a5fa;
+    .recipe-card {
+      background: #1a4731;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
     }
-    .tool-card a:hover {
-      color: #3b82f6;
-      text-shadow: 0 0 5px #10b981;
+    .light .recipe-card {
+      background: #d1fae5;
     }
-    .light .tool-card a {
-      color: #2f855a;
+    .material-item {
+      background: #2d3748;
+      padding: 8px;
+      margin: 4px 0;
+      border-radius: 6px;
     }
-    .light .tool-card a:hover {
-      color: #276749;
-      text-shadow: 0 0 5px #34d399;
-    }
-    #contact a:hover {
-      text-shadow: 0 0 5px #10b981;
-    }
-    .light #contact a:hover {
-      text-shadow: 0 0 5px #34d399;
-    }
-    .light h1 {
-      color: #10b981;
+    .light .material-item {
+      background: #e2e8f0;
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
-  <!-- ヘッダー -->
+  <!-- ヘッダー（全ツール共通） -->
   <header class="bg-gray-900 dark:bg-gray-800 p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-white light:text-green-500">BAEL's 便利ツール</h1>
+      <h1 class="text-2xl font-bold text-white light:text-green-500">BAELの便利ツール</h1>
       <div class="flex items-center space-x-4">
         <nav>
-          <a href="#home" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ホーム</a>
+          <a href="index.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ホーム</a>
           <a href="#guide" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">使い方</a>
           <a href="#contact" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">お問い合わせ</a>
         </nav>
@@ -81,75 +67,29 @@
 
   <!-- メインビジュアル -->
   <section class="container mx-auto py-10 text-center">
-    <img src="https://via.placeholder.com/200x100?text=BAEL+Logo" alt="BAEL Logo" class="toram-logo">
-    <h2 class="text-3xl font-semibold mt-4">BAELの便利ツール</h2>
-    <p class="text-lg mt-2">トーラムの情報をサクッと検索！初心者から廃プレイヤーまで、簡単便利！</p>
+    <h2 class="text-3xl font-semibold mt-4">素材逆引きツール</h2>
+    <p class="text-lg mt-2">作りたい装備名を入力 → 必要素材＋ドロップ場所を即表示！<br></p>
   </section>
 
-  <!-- ツール一覧 -->
-  <section class="container mx-auto py-10">
-    <h3 class="text-2xl font-semibold text-center mb-8">ツール一覧</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4">
-
-      <!-- 料理効果コードツール -->
-      <div class="tool-card p-6 rounded-lg shadow-lg">
-        <h4 class="text-xl font-bold">料理効果コードツール</h4>
-        <p class="mt-2">料理効果のコードを検索してコピー！STR+30などサクッと。</p>
-        <a href="cooking-tool.html" class="mt-4 inline-block text-blue-400 hover:text-blue-300">使ってみる →</a>
-      </div>
-
-      <!-- 素材逆引きツール -->
-      <div class="tool-card p-6 rounded-lg shadow-lg">
-        <h4 class="text-xl font-bold">素材逆引きツール</h4>
-        <p class="mt-2">作りたい装備名から必要素材＋ドロップ情報を逆検索！</p>
-        <a href="material-search-tool.html" class="mt-4 inline-block text-blue-400 hover:text-blue-300">使ってみる →</a>
-      </div>
-
-      <!-- ステータス計算機（準備中） -->
-      <div class="tool-card p-6 rounded-lg shadow-lg">
-        <h4 class="text-xl font-bold">ステータス計算機（準備中）</h4>
-        <p class="mt-2">最適な割り振りをシミュレーション。近日公開！</p>
-      </div>
-
-      <!-- ドロップ率チェッカー（準備中） -->
-      <div class="tool-card p-6 rounded-lg shadow-lg">
-        <h4 class="text-xl font-bold">ドロップ率チェッカー（準備中）</h4>
-        <p class="mt-2">アイテムごとのドロップ率をチェック。効率狩りに！</p>
-      </div>
-
-      <!-- 装備比較ツール（準備中） -->
-      <div class="tool-card p-6 rounded-lg shadow-lg">
-        <h4 class="text-xl font-bold">装備比較ツール（準備中）</h4>
-        <p class="mt-2">複数の装備を比較して最適な選択を。近日公開！</p>
-      </div>
-
-      <!-- 素材ドロップマップ（準備中） -->
-      <div class="tool-card p-6 rounded-lg shadow-lg">
-        <h4 class="text-xl font-bold">素材ドロップマップ（準備中）</h4>
-        <p class="mt-2">素材のドロップ場所をマップでチェック。近日公開！</p>
-      </div>
-
-      <!-- スキルシミュレーター（準備中） -->
-      <div class="tool-card p-6 rounded-lg shadow-lg">
-        <h4 class="text-xl font-bold">スキルシミュレーター（準備中）</h4>
-        <p class="mt-2">スキルの組み合わせを試して最適化。近日公開！</p>
-      </div>
-
-
+  <!-- ツール本体 -->
+  <section id="tool" class="container mx-auto py-10">
+    <div class="max-w-3xl mx-auto">
+      <input type="text" id="searchInput" placeholder="アイテム名で検索（例: 冒険者の服 / ショートソード / リバイタ）" class="w-full px-6 py-4 text-lg rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500 mb-8">
+      <div id="resultsContainer" class="space-y-6"></div>
     </div>
   </section>
 
   <!-- 使い方 -->
   <section id="guide" class="container mx-auto py-10">
     <h3 class="text-2xl font-semibold text-center mb-6">使い方</h3>
-    <p class="text-lg text-center">1. 使いたいツールのカードをクリック<br>2. 必要な素材や計算結果をチェック<br>3. 結果をシェア！</p>
+    <p class="text-lg text-center">1. 作りたい装備名を入力<br>2. 必要素材とドロップ場所が一覧で表示</p>
   </section>
 
   <!-- お問い合わせ -->
   <section id="contact" class="container mx-auto py-10 text-center">
     <h3 class="text-2xl font-semibold mb-6">お問い合わせ</h3>
-    <p>フィードバックはXで！ <a href="https://x.com/nevergiveupbael" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@nevergiveupbael</a></p>
-    <p>トーラムのハッシュタグ #トーラム でシェアしてね！</p>
+    <p>追加してほしいアイテムはXで！ <a href="https://x.com/nevergiveupbael" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@nevergiveupbael</a></p>
+    <p>#ToramOnline #BAELツール でシェア待ってます！</p>
   </section>
 
   <!-- フッター -->
@@ -160,9 +100,8 @@
     </div>
   </footer>
 
-  <!-- ダークモード切り替えスクリプト（カルーセル分は削除） -->
   <script>
-    // ダークモード切り替え
+    // テーマ切り替え（全ツール共通）
     const toggleButton = document.getElementById('theme-toggle');
     const html = document.documentElement;
     if (localStorage.getItem('theme') === 'light') {
@@ -183,6 +122,94 @@
         toggleButton.textContent = 'ライトモード';
       }
     });
+
+    // 逆引きデータ（実用的なサンプル5件。coryn.club参考・あなたがどんどん追加してください）
+    const recipes = [
+      {
+        item: "ウッドソード",
+        category: "片手剣",
+        materials: [
+          {name: "木材", qty: "5", type: "木材", location: ""}
+        ],
+        note: "鍛冶屋で製作可能"
+      },
+      {
+        item: "",
+        category: "",
+        materials: [
+          {name: "", qty: "", type: "", location: ""},
+          {name: "", qty: "", type: "", location: ""}
+        ],
+        note: ""
+      },
+      {
+        item: "冒険者の服",
+        category: "体装備",
+        materials: [
+          {name: "", qty: "", type: "", location: ""},
+          {name: "", qty: "", type: "", location: ""}
+        ],
+        note: ""
+      },
+      {
+        item: "リバイタ",
+        category: "",
+        materials: [
+          {name: "", qty: "", type: "", location: ""}
+        ],
+        note: ""
+      },
+      {
+        item: "",
+        category: "",
+        materials: [
+          {name: "", qty: "", type: "", location: ""}
+        ],
+        note: ""
+      }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('resultsContainer');
+
+    function renderResults(filtered) {
+      resultsContainer.innerHTML = '';
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = '<p class="text-center text-gray-400">該当アイテムなし（準備中）</p>';
+        return;
+      }
+      filtered.forEach(recipe => {
+        const card = document.createElement('div');
+        card.className = 'recipe-card shadow-lg';
+        card.innerHTML = `
+          <h3 class="text-xl font-bold mb-2">${recipe.item} <span class="text-sm text-green-400">(${recipe.category})</span></h3>
+          <p class="text-sm mb-4 text-gray-300">必要素材一覧：</p>
+          <div class="space-y-2">
+            ${recipe.materials.map(mat => `
+              <div class="material-item flex justify-between items-center">
+                <span class="font-medium">${mat.name} × ${mat.qty}</span>
+                <span class="text-green-400 text-sm">${mat.type}（${mat.location}）</span>
+              </div>
+            `).join('')}
+          </div>
+          <p class="mt-4 text-xs text-blue-300">${recipe.note}</p>
+        `;
+        resultsContainer.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('keyup', () => {
+      const term = searchInput.value.toLowerCase().trim();
+      if (!term) {
+        resultsContainer.innerHTML = '<p class="text-center text-gray-400">アイテム名を入力して検索！</p>';
+        return;
+      }
+      const filtered = recipes.filter(r => r.item.toLowerCase().includes(term));
+      renderResults(filtered);
+    });
+
+    // 初期表示
+    renderResults([]);
   </script>
 </body>
 </html>
