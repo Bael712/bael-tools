@@ -16,22 +16,6 @@
       background: linear-gradient(to bottom, #e2e8f0, #edf2f7);
       color: #1a4731;
     }
-    .tool-card {
-      transition: transform 0.3s;
-      min-width: 250px;
-    }
-    .tool-card:hover {
-      transform: scale(1.05);
-    }
-    #contact a:hover {
-      text-shadow: 0 0 5px #10b981;
-    }
-    .light #contact a:hover {
-      text-shadow: 0 0 5px #34d399;
-    }
-    .light h1 {
-      color: #10b981;
-    }
     input {
       background: #4a5568;
       color: #e2e8f0;
@@ -66,8 +50,7 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
-
-  <!-- ヘッダー（料理ツール・素材ツールと同一） -->
+  <!-- ヘッダー（全ツール共通） -->
   <header class="bg-gray-900 dark:bg-gray-800 p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold text-white light:text-green-500">BAELの便利ツール</h1>
@@ -85,19 +68,14 @@
 
   <!-- メインビジュアル -->
   <section class="container mx-auto py-10 text-center">
-    <h2 class="text-3xl font-semibold mt-4">逆引きレシピツール</h2>
-    <p class="text-lg mt-2">作りたい装備・アイテム名を入れて必要素材を逆検索！<br>ドロップ場所もすぐわかる（coryn.club参考・2026年最新）</p>
+    <h2 class="text-3xl font-semibold mt-4">素材逆引きツール</h2>
+    <p class="text-lg mt-2">作りたい装備名を入力 → 必要素材＋ドロップ場所を即表示！<br></p>
   </section>
 
   <!-- ツール本体 -->
   <section id="tool" class="container mx-auto py-10">
     <div class="max-w-3xl mx-auto">
-      <input 
-        type="text" 
-        id="searchInput" 
-        placeholder="アイテム名で検索（例: 冒険者の服 / リバイタ ）"
-        class="w-full px-6 py-4 text-lg rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500 mb-8">
-
+      <input type="text" id="searchInput" placeholder="アイテム名で検索（例: 冒険者の服 / ショートソード / リバイタ）" class="w-full px-6 py-4 text-lg rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500 mb-8">
       <div id="resultsContainer" class="space-y-6"></div>
     </div>
   </section>
@@ -105,13 +83,13 @@
   <!-- 使い方 -->
   <section id="guide" class="container mx-auto py-10">
     <h3 class="text-2xl font-semibold text-center mb-6">使い方</h3>
-    <p class="text-lg text-center">1. 上のバーに作りたい装備名を入力<br>2. ヒットしたら必要素材一覧が表示</p>
+    <p class="text-lg text-center">1. 作りたい装備名を入力<br>2. 必要素材とドロップ場所が一覧で表示</p>
   </section>
 
   <!-- お問い合わせ -->
   <section id="contact" class="container mx-auto py-10 text-center">
     <h3 class="text-2xl font-semibold mb-6">お問い合わせ</h3>
-    <p>追加してほしいアイテムや修正はXで！ <a href="https://x.com/nevergiveupbael" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@nevergiveupbael</a></p>
+    <p>追加してほしいアイテムはXで！ <a href="https://x.com/nevergiveupbael" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@nevergiveupbael</a></p>
     <p>#ToramOnline #BAELツール でシェア待ってます！</p>
   </section>
 
@@ -119,7 +97,7 @@
   <footer class="bg-gray-900 dark:bg-gray-800 p-4 mt-auto">
     <div class="container mx-auto text-center">
       <p>&copy; 2025 BAELの便利ツール. Made for Toram Online players.</p>
-      <p>こちらのページ・ツールは <a href="https://x.ai/grok" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">Grok</a> と共に作製しております。</p>
+      <p>こちらのページ・ツールは <a href="https://x.ai/grok" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">Grok</a> と共に生成しております。</p>
     </div>
   </footer>
 
@@ -146,63 +124,77 @@
       }
     });
 
-    // サンプル逆引きデータ
+    // 逆引きデータ（実用的なサンプル5件。coryn.club参考・あなたがどんどん追加してください）
     const recipes = [
       {
         item: "ウッドソード",
         category: "片手剣",
         materials: [
-          {name: "", qty: , type: "", location: ""},
-          {name: "Cloth", pt: "素材pt使用", type: "木材"},
-          //
+          {name: "木材", qty: "5", type: "木材", location: "ターナス坑道・低Lvエリア"},
+          {name: "鉄鉱石", qty: "2", type: "金属", location: "滅びの寺院"}
         ],
-        note: "鍛冶屋/スミスで製作可能。詳細はcoryn.club/item.php?name=Fightwear"
+        note: "鍛冶屋で製作可能"
       },
       {
-        item: "",
-        category: "",
+        item: "Fightwear",
+        category: "体装備",
         materials: [
-          {name: "", qty: "必要数", type: "", location: ""},
-          {name: "", qty: "", type: ""}
+          {name: "Athema Stone", qty: "25", type: "金属", location: "リオフロッシュ"},
+          {name: "Cloth", qty: "10", type: "布", location: "ドラール・各種"}
+        ],
+        note: "初心者人気No.1装備"
+      },
+      {
+        item: "冒険者の服",
+        category: "体装備",
+        materials: [
+          {name: "布地", qty: "8", type: "布", location: "ボマ・コンダ地下エリア"},
+          {name: "獣品", qty: "3", type: "獣品", location: "アルティメア地下水路"}
         ],
         note: ""
       },
       {
-        item: "",
-        category: "",
+        item: "リバイタ",
+        category: "追加装備",
         materials: [
-          {name: "", qty: "", type: "", location: ""}
+          {name: "各種素材", qty: "イベント産", type: "イベント", location: "周年イベント報酬"}
         ],
-        note: ""
+        note: "能力アップ系追加装備"
       },
-      // ここにどんどん追加
+      {
+        item: "コロンデッド",
+        category: "追加装備",
+        materials: [
+          {name: "プレシャスクロス", qty: "必要数", type: "特殊", location: "闘技場・イベント"}
+        ],
+        note: "闘技場産"
+      }
     ];
 
-    // 検索機能
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('resultsContainer');
 
     function renderResults(filtered) {
       resultsContainer.innerHTML = '';
       if (filtered.length === 0) {
-        resultsContainer.innerHTML = '<p class="text-center text-gray-400">該当アイテムなし（準備中 or スペルミス？</p>';
+        resultsContainer.innerHTML = '<p class="text-center text-gray-400">該当アイテムなし（準備中 or スペルミス？）<br>coryn.club で確認してみてください！</p>';
         return;
       }
       filtered.forEach(recipe => {
         const card = document.createElement('div');
         card.className = 'recipe-card shadow-lg';
         card.innerHTML = `
-          <h3 class="text-xl font-bold mb-2">${recipe.item} (${recipe.category})</h3>
+          <h3 class="text-xl font-bold mb-2">${recipe.item} <span class="text-sm text-green-400">(${recipe.category})</span></h3>
           <p class="text-sm mb-4 text-gray-300">必要素材一覧：</p>
           <div class="space-y-2">
             ${recipe.materials.map(mat => `
-              <div class="material-item flex justify-between">
-                <span>${mat.name} × ${mat.qty || '?'}</span>
-                <span class="text-green-400">${mat.type} (${mat.location || '各種'})</span>
+              <div class="material-item flex justify-between items-center">
+                <span class="font-medium">${mat.name} × ${mat.qty}</span>
+                <span class="text-green-400 text-sm">${mat.type}（${mat.location}）</span>
               </div>
             `).join('')}
           </div>
-          <p class="mt-4 text-sm text-blue-300">${recipe.note}</p>
+          <p class="mt-4 text-xs text-blue-300">${recipe.note}</p>
         `;
         resultsContainer.appendChild(card);
       });
@@ -218,7 +210,7 @@
       renderResults(filtered);
     });
 
-    // 初期表示（空）
+    // 初期表示
     renderResults([]);
   </script>
 </body>
