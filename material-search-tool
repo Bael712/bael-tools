@@ -130,44 +130,43 @@
         item: "ウッドソード",
         category: "片手剣",
         materials: [
-          {name: "木材", qty: "5", type: "木材", location: "ターナス坑道・低Lvエリア"},
-          {name: "鉄鉱石", qty: "2", type: "金属", location: "滅びの寺院"}
+          {name: "木材", qty: "5", type: "木材", location: ""}
         ],
         note: "鍛冶屋で製作可能"
       },
       {
-        item: "Fightwear",
-        category: "体装備",
+        item: "",
+        category: "",
         materials: [
-          {name: "Athema Stone", qty: "25", type: "金属", location: "リオフロッシュ"},
-          {name: "Cloth", qty: "10", type: "布", location: "ドラール・各種"}
+          {name: "", qty: "", type: "", location: ""},
+          {name: "", qty: "", type: "", location: ""}
         ],
-        note: "初心者人気No.1装備"
+        note: ""
       },
       {
         item: "冒険者の服",
         category: "体装備",
         materials: [
-          {name: "布地", qty: "8", type: "布", location: "ボマ・コンダ地下エリア"},
-          {name: "獣品", qty: "3", type: "獣品", location: "アルティメア地下水路"}
+          {name: "", qty: "", type: "", location: ""},
+          {name: "", qty: "", type: "", location: ""}
         ],
         note: ""
       },
       {
         item: "リバイタ",
-        category: "追加装備",
+        category: "",
         materials: [
-          {name: "各種素材", qty: "イベント産", type: "イベント", location: "周年イベント報酬"}
+          {name: "", qty: "", type: "", location: ""}
         ],
-        note: "能力アップ系追加装備"
+        note: ""
       },
       {
-        item: "コロンデッド",
-        category: "追加装備",
+        item: "",
+        category: "",
         materials: [
-          {name: "プレシャスクロス", qty: "必要数", type: "特殊", location: "闘技場・イベント"}
+          {name: "", qty: "", type: "", location: ""}
         ],
-        note: "闘技場産"
+        note: ""
       }
     ];
 
@@ -177,7 +176,7 @@
     function renderResults(filtered) {
       resultsContainer.innerHTML = '';
       if (filtered.length === 0) {
-        resultsContainer.innerHTML = '<p class="text-center text-gray-400">該当アイテムなし（準備中 or スペルミス？）<br>coryn.club で確認してみてください！</p>';
+        resultsContainer.innerHTML = '<p class="text-center text-gray-400">該当アイテムなし（準備中）</p>';
         return;
       }
       filtered.forEach(recipe => {
