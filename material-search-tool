@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAEL's 素材逆引きツール</title>
+  <meta name="description" content="トーラムオンラインの装備・アイテムから必要素材を逆検索！ドロップ場所も一発でわかる便利ツール。">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #1a202c, #2d3748);
+      color: #e2e8f0;
+      font-family: 'Arial', sans-serif;
+    }
+    .light body {
+      background: linear-gradient(to bottom, #e2e8f0, #edf2f7);
+      color: #1a4731;
+    }
+    .tool-card {
+      transition: transform 0.3s;
+      min-width: 250px;
+    }
+    .tool-card:hover {
+      transform: scale(1.05);
+    }
+    #contact a:hover {
+      text-shadow: 0 0 5px #10b981;
+    }
+    .light #contact a:hover {
+      text-shadow: 0 0 5px #34d399;
+    }
+    .light h1 {
+      color: #10b981;
+    }
+    input {
+      background: #4a5568;
+      color: #e2e8f0;
+      border: 1px solid #718096;
+      border-radius: 8px;
+      padding: 12px;
+      width: 100%;
+    }
+    .light input {
+      background: #edf2f7;
+      color: #1a4731;
+      border-color: #a0aec0;
+    }
+    .recipe-card {
+      background: #1a4731;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .light .recipe-card {
+      background: #d1fae5;
+    }
+    .material-item {
+      background: #2d3748;
+      padding: 8px;
+      margin: 4px 0;
+      border-radius: 6px;
+    }
+    .light .material-item {
+      background: #e2e8f0;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- ヘッダー（料理ツール・素材ツールと同一） -->
+  <header class="bg-gray-900 dark:bg-gray-800 p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-white light:text-green-500">BAELの便利ツール</h1>
+      <div class="flex items-center space-x-4">
+        <nav>
+          <a href="index.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ホーム</a>
+          <a href="tools.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200 font-bold underline">ツール</a>
+          <a href="#guide" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">使い方</a>
+          <a href="#contact" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">お問い合わせ</a>
+        </nav>
+        <button id="theme-toggle" class="text-white bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded">ライトモード</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインビジュアル -->
+  <section class="container mx-auto py-10 text-center">
+    <h2 class="text-3xl font-semibold mt-4">逆引きレシピツール</h2>
+    <p class="text-lg mt-2">作りたい装備・アイテム名を入れて必要素材を逆検索！<br>ドロップ場所もすぐわかる（coryn.club参考・2026年最新）</p>
+  </section>
+
+  <!-- ツール本体 -->
+  <section id="tool" class="container mx-auto py-10">
+    <div class="max-w-3xl mx-auto">
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="アイテム名で検索（例: 冒険者の服 / リバイタ ）"
+        class="w-full px-6 py-4 text-lg rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500 mb-8">
+
+      <div id="resultsContainer" class="space-y-6"></div>
+    </div>
+  </section>
+
+  <!-- 使い方 -->
+  <section id="guide" class="container mx-auto py-10">
+    <h3 class="text-2xl font-semibold text-center mb-6">使い方</h3>
+    <p class="text-lg text-center">1. 上のバーに作りたい装備名を入力<br>2. ヒットしたら必要素材一覧が表示</p>
+  </section>
+
+  <!-- お問い合わせ -->
+  <section id="contact" class="container mx-auto py-10 text-center">
+    <h3 class="text-2xl font-semibold mb-6">お問い合わせ</h3>
+    <p>追加してほしいアイテムや修正はXで！ <a href="https://x.com/nevergiveupbael" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@nevergiveupbael</a></p>
+    <p>#ToramOnline #BAELツール でシェア待ってます！</p>
+  </section>
+
+  <!-- フッター -->
+  <footer class="bg-gray-900 dark:bg-gray-800 p-4 mt-auto">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 BAELの便利ツール. Made for Toram Online players.</p>
+      <p>こちらのページ・ツールは <a href="https://x.ai/grok" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">Grok</a> と共に作製しております。</p>
+    </div>
+  </footer>
+
+  <script>
+    // テーマ切り替え（全ツール共通）
+    const toggleButton = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      html.classList.remove('dark');
+      html.classList.add('light');
+      toggleButton.textContent = 'ダークモード';
+    }
+    toggleButton.addEventListener('click', () => {
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        toggleButton.textContent = 'ダークモード';
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = 'ライトモード';
+      }
+    });
+
+    // サンプル逆引きデータ
+    const recipes = [
+      {
+        item: "ウッドソード",
+        category: "片手剣",
+        materials: [
+          {name: "", qty: , type: "", location: ""},
+          {name: "Cloth", pt: "素材pt使用", type: "木材"},
+          //
+        ],
+        note: "鍛冶屋/スミスで製作可能。詳細はcoryn.club/item.php?name=Fightwear"
+      },
+      {
+        item: "",
+        category: "",
+        materials: [
+          {name: "", qty: "必要数", type: "", location: ""},
+          {name: "", qty: "", type: ""}
+        ],
+        note: ""
+      },
+      {
+        item: "",
+        category: "",
+        materials: [
+          {name: "", qty: "", type: "", location: ""}
+        ],
+        note: ""
+      },
+      // ここにどんどん追加
+    ];
+
+    // 検索機能
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('resultsContainer');
+
+    function renderResults(filtered) {
+      resultsContainer.innerHTML = '';
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = '<p class="text-center text-gray-400">該当アイテムなし（準備中 or スペルミス？</p>';
+        return;
+      }
+      filtered.forEach(recipe => {
+        const card = document.createElement('div');
+        card.className = 'recipe-card shadow-lg';
+        card.innerHTML = `
+          <h3 class="text-xl font-bold mb-2">${recipe.item} (${recipe.category})</h3>
+          <p class="text-sm mb-4 text-gray-300">必要素材一覧：</p>
+          <div class="space-y-2">
+            ${recipe.materials.map(mat => `
+              <div class="material-item flex justify-between">
+                <span>${mat.name} × ${mat.qty || '?'}</span>
+                <span class="text-green-400">${mat.type} (${mat.location || '各種'})</span>
+              </div>
+            `).join('')}
+          </div>
+          <p class="mt-4 text-sm text-blue-300">${recipe.note}</p>
+        `;
+        resultsContainer.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('keyup', () => {
+      const term = searchInput.value.toLowerCase().trim();
+      if (!term) {
+        resultsContainer.innerHTML = '<p class="text-center text-gray-400">アイテム名を入力して検索！</p>';
+        return;
+      }
+      const filtered = recipes.filter(r => r.item.toLowerCase().includes(term));
+      renderResults(filtered);
+    });
+
+    // 初期表示（空）
+    renderResults([]);
+  </script>
+</body>
+</html>
