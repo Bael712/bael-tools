@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAELの料理効果コードツール</title>
+  <title>BAEL's 料理効果コードツール</title>
   <meta name="description" content="トーラムの料理効果コード検索ツール。効果を選んでコードをサクッとコピー！">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
@@ -137,7 +137,6 @@
       <div class="flex items-center space-x-4">
         <nav>
           <a href="index.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ホーム</a>
-          <a href="tools.html" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">ツール</a>
           <a href="#guide" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">使い方</a>
           <a href="#contact" class="text-blue-400 hover:text-blue-300 mx-2 dark:text-green-300 dark:hover:text-green-200">お問い合わせ</a>
         </nav>
@@ -176,7 +175,7 @@
   <!-- お問い合わせ -->
   <section id="contact" class="container mx-auto py-10 text-center">
     <h3 class="text-2xl font-semibold mb-6">お問い合わせ</h3>
-    <p>フィードバックはXで！ <a href="https://x.com/nevergiveupbael" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@nevergiveupbael</a></p>
+    <p>フィードバックはXで！ <a href="https://x.com/Otohotaru" class="text-blue-400 hover:text-blue-300 dark:text-green-300 dark:hover:text-green-200">@Otohotaru</a></p>
     <p>トーラムのハッシュタグ #ToramOnline でシェアしてね！</p>
   </section>
 
@@ -219,7 +218,7 @@
       "VIT+26": ["2134125", "2269030"],
       "AGI+30": ["1220777", "1110033", "7162029"],
       "DEX+30": ["3220777", "1074649", "1010261"],
-      "最大HP+5000": ["2010228", "54154629", "1250015", "1010101", "1261515"],
+      "最大HP+5000": ["2010228", "54154629", "1250015", "1010101"],
       "最大MP+1000": ["6053838", "2260000", "2020707", "1070417"],
       "武器ATK+100": ["6220777", "4010051"],
       "命中+100": ["2010308", "3210104", "1181220", "1181220"],
@@ -227,21 +226,21 @@
       "光属性にダメージ+11%": ["ナビダ-M-1225"],
       "闇属性にダメージ+15%": ["3210104", "5010480"],
       "火属性にダメージ+15%": ["3210106", "9181111"],
-      "水属性にダメージ+15%": ["3210100", "1110111"],
+      "水属性にダメージ+15%": ["3210100", "7150030", "1110111"],
       "風属性にダメージ+15%": ["3210101", "3030303"],
       "地属性にダメージ+15%": ["3210103", "2020202"],
       "地属性にダメージ+11%": ["5236969"],
       "無属性にダメージ+15%": ["3210102"],
       "無属性にダメージ+11%": ["2190038"],
-      "物理耐性+50%": ["2200117", "1010308", "4010051", "2020111"],
-      "魔法耐性+50%": ["5200025", "6190007", "2210000", "2020505", "2011518"],
+      "物理耐性+50%": ["2200117", "1010308", "4010051"],
+      "魔法耐性+50%": ["5200025", "6190007", "2210000"],
       "物理バリア+5000": ["7130004"],
       "魔法バリア+5000": ["7090003"],
       "割合バリア+30%": ["4010024", "1074649", "6150029"],
-      "攻撃MP回復+30": ["5236969", "7220777", "4040404", "3012171", "5102026"],
-      "クリティカル率+30": ["3149696", "4010000", "1181140", "7162029", "1026402", "1012911"],
+      "攻撃MP回復+30": ["5236969", "7220777", "4040404"],
+      "クリティカル率+30": ["3149696", "4010000", "1181140", "7162029","1026402"],
       "ヘイト-100%": ["3190038", "1010261"],
-      "ヘイト+100%": ["4220777", "2190038", "5261002", "1012911"]
+      "ヘイト+100%": ["4220777", "2190038", "5261002"]
     };
 
     const select = document.getElementById("effectSelect");
@@ -265,8 +264,7 @@
         heading.textContent = value;
 
         codesList.innerHTML = "";
-        const uniqueCodes = [...new Set(data[value])];
-        uniqueCodes.forEach(code => {
+        data[value].forEach(code => {
           const row = document.createElement("div");
           row.className = "code-row";
 
